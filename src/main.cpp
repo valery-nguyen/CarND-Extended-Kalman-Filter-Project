@@ -74,7 +74,7 @@ int main(int argc, char* argv[]) {
     MeasurementPackage meas_package;
     GroundTruthPackage gt_package;
     istringstream iss(line);
-    long long timestamp;
+    long timestamp;
 
     // reads first element from the current line
     iss >> sensor_type;
@@ -165,12 +165,14 @@ int main(int argc, char* argv[]) {
 
     estimations.push_back(fusionEKF.ekf_.x_);
     ground_truth.push_back(gt_pack_list[k].gt_values_);
+      
   }
 
   // compute the accuracy (RMSE)
   Tools tools;
-  cout << "Accuracy - RMSE:" << endl << tools.CalculateRMSE(estimations, ground_truth) << endl;
-
+  cout << "RMSE:" << endl;
+  cout << tools.CalculateRMSE(estimations, ground_truth) << endl;
+    
   // close files
   if (out_file_.is_open()) {
     out_file_.close();
